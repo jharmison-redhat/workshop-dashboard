@@ -58,6 +58,7 @@ $(document).ready(function() {
         var console_url = '/' + normalize(base_url + '/../console');
         var slides_url = '/' + normalize(base_url + '/../slides');
         var terminal_url = '/' + normalize(base_url + '/../terminal');
+        var crw_url = '/' + normalize(base_url + '/../crw');
 
         if (location.hostname === this.hostname || !this.hostname.length) {
             if (this.pathname.startsWith(console_url)) {

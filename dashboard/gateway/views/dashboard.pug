@@ -129,6 +129,10 @@ html
                 text-align: center;
             }
 
+            .crw-link {
+                text-align: center;
+            }
+
         script.
             require.config({
               paths: {
@@ -206,6 +210,11 @@ html
                 $("#slides-tab").trigger("click");
             }
 
+            function open_link_in_crw(url) {
+                $("#crw-iframe").attr('src', url);
+                $("#crw-tab").trigger("click");
+            }
+
             function bring_terminal_to_front() {
                 $("#terminals-tab").trigger("click");
                 var terminal_iframe = document.getElementById("terminal1-iframe");
@@ -224,12 +233,14 @@ html
                 $("#terminals-pane").height(height);
                 $("#console-pane").height(height);
                 $("#slides-pane").height(height);
+                $("#crw-pane").height(height);
 
                 var width = $("#workarea-div").width();
 
                 $("#terminals-pane").width(width);
                 $("#console-pane").width(width);
                 $("#slides-pane").width(width);
+                $("#crw-pane").height(height);
             }
 
             $(window).on('load', function() {
@@ -317,6 +328,12 @@ html
                                         span.badge.badge-secondary Slides
                                         | &nbsp;&nbsp;
                                         | #{slides_link}
+                                if crw_link
+                                    p
+                                    h4.crw-link
+                                        span.badge.badge-secondary CRW
+                                        | &nbsp;&nbsp;
+                                        | #{Crw_link}
 
                     div.modal-footer
                         button.btn.btn-secondary(type="button", data-dismiss="modal") Dismiss
@@ -336,13 +353,17 @@ html
                 if with_slides
                     li.nav-item
                         a.nav-link#slides-tab(data-toggle="tab" href="#slides-pane" role="tab" aria-controls="slides-pane" aria-selected=false) Slides
+                
+                if with_crw
+                    li.nav-item
+                        a.nav-link#crw-tab(data-toggle="tab" href="#crw-pane" role="tab" aria-controls="crw-pane" aria-selected=false) CRW
 
                 li.nav-item.ml-auto
                     div.dropdown
                         button.btn.btn-default.btn-transparent#actions-dropdown(type="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="true")
                             span.hamburger
                         ul.dropdown-menu(role="menu", aria-labelledby="actions-dropdown")
-                            if homeroom_link || workshop_link || slides_link
+                            if homeroom_link || workshop_link || slides_link || CRW_link
                                 li.dropdown-item
                                     a(role="menuitem", data-toggle="modal", data-target="#workshop-links") Workshop Links
                                 li.dropdown-divider(role="separator")
@@ -392,6 +413,9 @@ html
                 if with_slides
                     div.tab-pane.fade.show.iframe-div#slides-pane(role="tabpanel" aria-labelledby="slides-tab")
                         iframe#slides-iframe(src="../slides/index.html")
+                if with_crw
+                    div.tab-pane.fade.show.iframe-div#crw-pane(role="tabpanel" aria-labelledby="crw-tab")
+                        iframe#crw-iframe(src="http://codeready-crw.apps.cluster-homeroom-c378.homeroom-c378.example.opentlc.com/")
 
         script.
             require(['split'], function(split) {

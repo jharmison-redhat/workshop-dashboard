@@ -127,6 +127,10 @@ var config = {
         content: path.join(base_url, '..', 'terminal')
       },
       {
+        name: 'crw_url',
+        content: path.join(base_url, '..', 'crw')
+      },
+      {
         name: 'username',
         content: ((process.env.JUPYTERHUB_USER === undefined)
             ? '' : process.env.JUPYTERHUB_USER)

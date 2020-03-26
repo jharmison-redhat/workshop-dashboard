@@ -35,6 +35,8 @@ module.exports = function(app, prefix) {
 
     var slides_dir = process.env.SLIDES_DIR;
 
+    router.locals.with_crw = true;
+
     router.locals.with_slides = false;
 
     if (slides_dir) {
