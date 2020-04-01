@@ -17,6 +17,7 @@ module.exports = function(app, prefix) {
 
     router.locals.console_url = process.env.CONSOLE_URL;
     router.locals.restart_url = process.env.RESTART_URL;
+    router.locals.crw_url = process.env.CRW_URL;
 
     router.locals.workshop_link = process.env.WORKSHOP_LINK;
     router.locals.slides_link = process.env.SLIDES_LINK;
@@ -34,8 +35,6 @@ module.exports = function(app, prefix) {
     var workshop_dir = process.env.WORKSHOP_DIR || '/opt/app-root/src/workshop';
 
     var slides_dir = process.env.SLIDES_DIR;
-
-    router.locals.with_crw = true;
 
     router.locals.with_slides = false;
 

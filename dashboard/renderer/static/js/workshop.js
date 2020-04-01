@@ -15,6 +15,11 @@ function handle_console_link(event) {
     parent.open_link_in_console(event.target.href);
 }
 
+function handle_crw_link(event) {
+    event.preventDefault();
+    parent.open_link_in_crw(event.target.href);
+}
+
 function handle_slides_link(event) {
     event.preventDefault();
     parent.open_link_in_slides(event.target.href);
@@ -80,6 +85,11 @@ $(document).ready(function() {
                 else {
                     $(this).attr('target','_blank');
                 }
+            }
+            else if (this.pathname.startsWith(crw_url)) {
+                $(this).click(function(event) {
+                    handle_crw_link(event);
+                });
             }
         }
         else {

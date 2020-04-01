@@ -331,7 +331,7 @@ html
                                 if crw_link
                                     p
                                     h4.crw-link
-                                        span.badge.badge-secondary CRW
+                                        span.badge.badge-secondary CodeReady Workspaces
                                         | &nbsp;&nbsp;
                                         | #{Crw_link}
 
@@ -354,9 +354,9 @@ html
                     li.nav-item
                         a.nav-link#slides-tab(data-toggle="tab" href="#slides-pane" role="tab" aria-controls="slides-pane" aria-selected=false) Slides
                 
-                if with_crw
+                if crw_url
                     li.nav-item
-                        a.nav-link#crw-tab(data-toggle="tab" href="#crw-pane" role="tab" aria-controls="crw-pane" aria-selected=false) CRW
+                        a.nav-link#crw-tab(data-toggle="tab" href="#crw-pane" role="tab" aria-controls="crw-pane" aria-selected=false) CodeReady Workspaces
 
                 li.nav-item.ml-auto
                     div.dropdown
@@ -413,9 +413,9 @@ html
                 if with_slides
                     div.tab-pane.fade.show.iframe-div#slides-pane(role="tabpanel" aria-labelledby="slides-tab")
                         iframe#slides-iframe(src="../slides/index.html")
-                if with_crw
+                if crw_url
                     div.tab-pane.fade.show.iframe-div#crw-pane(role="tabpanel" aria-labelledby="crw-tab")
-                        iframe#crw-iframe(src="http://codeready-crw.apps.cluster-homeroom-c378.homeroom-c378.example.opentlc.com/")
+                        iframe#crw-iframe(src=crw_url)
 
         script.
             require(['split'], function(split) {
