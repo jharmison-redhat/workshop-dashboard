@@ -347,6 +347,10 @@
                                     {
                                         "name": "KUBECTL_VERSION",
                                         "value": "${KUBECTL_VERSION}"
+                                    },
+                                    {
+                                        "name": "DEFAULT_ROUTE",
+                                        "value": "dashboard"
                                     }
                                 ],
                                 "volumeMounts": [
