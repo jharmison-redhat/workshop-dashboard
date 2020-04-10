@@ -2,7 +2,7 @@ html, body {
     height: 100%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    font-family: 'Red Hat Display', sans-serif;
+    font-family: 'Red Hat Text', sans-serif;
 }
 
 .header {
