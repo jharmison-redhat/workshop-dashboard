@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    font-family: 'Red Hat Display', sans-serif;
 }
 
 .header {
@@ -119,19 +120,20 @@ html, body {
 
 .page-content code {
   color: #555;
-  background-color: #FFFDDC;
+  background-color: rgb(245, 245, 245);
 }
 
 .page-content pre {
-  background: #FFFDDC;
+  background: rgb(245, 245, 245);
   border: 0;
   padding: 6px;
   white-space: pre-wrap;
   word-break: keep-all;
+  border-radius: 4px;
 }
 
 .page-content pre code {
-  color: #657B83;
+  color: rgb(62, 63, 70);
 }
 
 .page-content .page-meta {

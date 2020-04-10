@@ -1,4 +1,4 @@
-FROM quay.io/akrohg/workshop-terminal-keycloak:latest
+FROM quay.io/openshifthomeroom/workshop-terminal:3.4.2
 
 USER root
 
