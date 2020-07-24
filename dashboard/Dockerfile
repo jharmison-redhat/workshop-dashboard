@@ -2,6 +2,10 @@ FROM quay.io/openshifthomeroom/workshop-terminal:3.4.2
 
 USER root
 
+RUN curl -sL -o /tmp/tkn.tar.gz https://github.com/tektoncd/cli/releases/download/v0.11.0/tkn_0.11.0_Linux_x86_64.tar.gz && \
+    tar -C /usr/local/bin -zxf /tmp/tkn.tar.gz tkn && \
+    rm /tmp/tkn.tar.gz
+
 RUN HOME=/opt/workshop/reveal.js && \
     mkdir /opt/workshop/reveal.js && \
     cd /opt/workshop/reveal.js && \
