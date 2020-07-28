@@ -20,10 +20,10 @@ case $LOCATION in
         echo "Requires DOCKER_USERNAME and DOCKER_PASSWORD variables to be exported." >&2
         exit 1
     fi
-    echo "$DOCKER_PASSWORD" | podman login -u "$DOCKER_USERNAME" --password-stdin quay.io
+    echo "$DOCKER_PASSWORD" | podman login -u "$DOCKER_USERNAME" --password-stdin quay.io || exit 2
 
-    podman build -t quay.io/$QUAY_PROJECT/workshop-dashboard:latest .
-    podman push quay.io/$QUAY_PROJECT/workshop-dashboard:latest
+    podman build -t quay.io/$QUAY_PROJECT/workshop-dashboard:latest . || exit 3
+    podman push quay.io/$QUAY_PROJECT/workshop-dashboard:latest || exit 4
   ;;
   *)
     echo "usage: ./hack/build.sh [local|quay] [QUAY_PROJECT]"
