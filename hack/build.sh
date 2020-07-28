@@ -10,6 +10,8 @@ if [ -f .quay_creds -a -z "$1" ]; then
   . .quay_creds
 fi
 
+which podman &>/dev/null || function podman() { docker "${@}" ; }
+
 case $LOCATION in
   local)
     podman build -t quay.io/$QUAY_PROJECT/workshop-dashboard:latest .
