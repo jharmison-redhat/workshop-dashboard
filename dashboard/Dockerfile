@@ -1,4 +1,4 @@
-FROM quay.io/openshifthomeroom/workshop-terminal:3.4.2
+FROM quay.io/redhatgov/workshop-terminal:latest
 
 USER root
 

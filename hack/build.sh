@@ -1,20 +1,81 @@
 #! /usr/bin/env bash
-# Helper script to build the workshop spawner
 
-LOCATION=${1:local}
-QUAY_PROJECT=${2:-redhatgov}
+# change these
+CONTAINER_IMAGE=workshop-dashboard
+DOCKERFILE_DIR=dashboard
 
-cd $(dirname $(realpath $0))/../dashboard
-if [ -f .quay_creds -a -z "$1" ]; then
+function print_usage() {
+  echo "usage: $0 [-l (local|quay)] [-p QUAY_PROJECT] [-t CONTAINER_TAG] [-- BUILD_ARGS]"
+}
+
+# parse args
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -l|--location=*)
+      if [ "$1" = '-l' ]; then
+        shift
+        LOCATION="$1"
+      else
+        LOCATION=$(echo "$1" | cut -d= -f2-)
+      fi
+      ;;
+    -p|--project=*)
+      if [ "$1" = '-p' ]; then
+        shift
+        QUAY_PROJECT="$1"
+      else
+        QUAY_PROJECT=$(echo "$1" | cut -d= -f2-)
+      fi
+      ;;
+    -t|--tag=*)
+      if [ "$1" = '-t' ]; then
+        shift
+        CONTAINER_TAG="$1"
+      else
+        CONTAINER_TAG=$(echo "$1" | cut -d= -f2-)
+      fi
+      ;;
+    --)
+      break
+      ;;
+    *)
+      print_usage >&2
+      exit 127
+      ;;
+  esac
+  shift
+done
+
+cd $(dirname $(realpath $0))/../$DOCKERFILE_DIR
+
+# some defaults
+if [ -f .quay_creds -a -z "$LOCATION" ]; then
   LOCATION=quay
   . .quay_creds
+elif [ -z "$LOCATION" ]; then
+  LOCATION=local
+fi
+if [ -z "$QUAY_PROJECT" ]; then
+  QUAY_PROJECT=redhatgov
+fi
+if [ -z "$CONTAINER_TAG" ]; then
+  CONTAINER_TAG=latest
 fi
 
-which podman &>/dev/null || function podman() { docker "${@}" ; }
+# docker/podman problems
+if ! which docker &>/dev/null; then
+  if which podman &>/dev/null; then
+    function docker() { podman "${@}" ; }
+  else
+    echo "No docker|podman installed :(" >&2
+    exit 1
+  fi
+fi
 
+# build
 case $LOCATION in
   local)
-    podman build -t quay.io/$QUAY_PROJECT/workshop-dashboard:latest .
+    docker build "${@}" -t quay.io/$QUAY_PROJECT/$CONTAINER_IMAGE:$CONTAINER_TAG .
   ;;
   quay)
     # designed to be used by travis-ci, where the docker_* variables are defined
@@ -22,12 +83,13 @@ case $LOCATION in
         echo "Requires DOCKER_USERNAME and DOCKER_PASSWORD variables to be exported." >&2
         exit 1
     fi
-    echo "$DOCKER_PASSWORD" | podman login -u "$DOCKER_USERNAME" --password-stdin quay.io || exit 2
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin quay.io || exit 2
 
-    podman build -t quay.io/$QUAY_PROJECT/workshop-dashboard:latest . || exit 3
-    podman push quay.io/$QUAY_PROJECT/workshop-dashboard:latest || exit 4
+    docker build "${@}" -t quay.io/$QUAY_PROJECT/$CONTAINER_IMAGE:$CONTAINER_TAG . || exit 3
+    docker push quay.io/$QUAY_PROJECT/$CONTAINER_IMAGE:$CONTAINER_TAG || exit 4
   ;;
   *)
-    echo "usage: ./hack/build.sh [local|quay] [QUAY_PROJECT]"
+    print_usage >&2
+    exit 127
   ;;
 esac

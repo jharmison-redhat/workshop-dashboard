@@ -5,6 +5,6 @@ services:
   - docker
 deploy:
   provider: script
-  script: bash hack/build.sh quay
+  script: bash hack/build.sh -l quay
   on:
     branch: develop
