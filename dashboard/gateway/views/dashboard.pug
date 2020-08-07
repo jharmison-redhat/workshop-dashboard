@@ -140,6 +140,14 @@ html
                 text-align: center;
             }
 
+            .custom-tab-3-link {
+                text-align: center;
+            }
+
+            .custom-tab-4-link {
+                text-align: center;
+            }
+
         script.
             require.config({
               paths: {
@@ -217,16 +225,6 @@ html
                 $("#slides-tab").trigger("click");
             }
 
-            function open_link_in_custom_tab_1(url) {
-                $("#custom-tab-1-iframe").attr('src', url);
-                $("#custom-tab-1-tab").trigger("click");
-            }
-
-            function open_link_in_custom_tab_2(url) {
-                $("#custom-tab-2-iframe").attr('src', url);
-                $("#custom-tab-2-tab").trigger("click");
-            }
-
             function bring_terminal_to_front() {
                 $("#terminals-tab").trigger("click");
                 var terminal_iframe = document.getElementById("terminal1-iframe");
@@ -247,14 +245,18 @@ html
                 $("#slides-pane").height(height);
                 $("#custom-tab-1-pane").height(height);
                 $("#custom-tab-2-pane").height(height);
+                $("#custom-tab-3-pane").height(height);
+                $("#custom-tab-4-pane").height(height);
 
                 var width = $("#workarea-div").width();
 
                 $("#terminals-pane").width(width);
                 $("#console-pane").width(width);
                 $("#slides-pane").width(width);
-                $("#custom-tab-1-pane").height(height);
-                $("#custom-tab-2-pane").height(height);
+                $("#custom-tab-1-pane").width(width);
+                $("#custom-tab-2-pane").width(width);
+                $("#custom-tab-3-pane").width(width);
+                $("#custom-tab-4-pane").width(width);
             }
 
             $(window).on('load', function() {
@@ -354,6 +356,18 @@ html
                                         span.badge.badge-secondary #{custom_tab_2.split("=")[0]}
                                         | &nbsp;&nbsp;
                                         | #{custom_tab_2.split("=")[1]}
+                                if custom_tab_3
+                                    p
+                                    h4.custom-tab-3-link
+                                        span.badge.badge-secondary #{custom_tab_3.split("=")[0]}
+                                        | &nbsp;&nbsp;
+                                        | #{custom_tab_3.split("=")[1]}
+                                if custom_tab_4
+                                    p
+                                    h4.custom-tab-4-link
+                                        span.badge.badge-secondary #{custom_tab_4.split("=")[0]}
+                                        | &nbsp;&nbsp;
+                                        | #{custom_tab_4.split("=")[1]}
 
                     div.modal-footer
                         button.btn.btn-secondary(type="button", data-dismiss="modal") Dismiss
@@ -382,12 +396,21 @@ html
                     li.nav-item
                         a.nav-link#custom-tab-2-tab(data-toggle="tab" href="#custom-tab-2-pane" role="tab" aria-controls="custom-tab-2-pane" aria-selected=false) #{custom_tab_2.split("=")[0]}
 
+                if custom_tab_3
+                    li.nav-item
+                        a.nav-link#custom-tab-3-tab(data-toggle="tab" href="#custom-tab-3-pane" role="tab" aria-controls="custom-tab-3-pane" aria-selected=false) #{custom_tab_3.split("=")[0]}
+
+                if custom_tab_4
+                    li.nav-item
+                        a.nav-link#custom-tab-4-tab(data-toggle="tab" href="#custom-tab-4-pane" role="tab" aria-controls="custom-tab-4-pane" aria-selected=false) #{custom_tab_4.split("=")[0]}
+
+
                 li.nav-item.ml-auto
                     div.dropdown
                         button.btn.btn-default.btn-transparent#actions-dropdown(type="button", data-toggle="dropdown", aria-haspopup="true", aria-expanded="true")
                             span.hamburger
                         ul.dropdown-menu(role="menu", aria-labelledby="actions-dropdown")
-                            if homeroom_link || workshop_link || slides_link || custom_tab_1 || custom_tab_2
+                            if homeroom_link || workshop_link || slides_link || custom_tab_1 || custom_tab_2 || custom_tab_3 || custom_tab_4
                                 li.dropdown-item
                                     a(role="menuitem", data-toggle="modal", data-target="#workshop-links") Workshop Links
                                 li.dropdown-divider(role="separator")
@@ -437,13 +460,19 @@ html
                 if with_slides
                     div.tab-pane.fade.show.iframe-div#slides-pane(role="tabpanel" aria-labelledby="slides-tab")
                         iframe#slides-iframe(src="../slides/index.html")
+
                 if custom_tab_1
                     div.tab-pane.fade.show.iframe-div#custom-tab-1-pane(role="tabpanel" aria-labelledby="custom-tab-1-tab")
                         iframe#custom-tab-1-iframe(src=custom_tab_1.split("=")[1])
-
                 if custom_tab_2
                     div.tab-pane.fade.show.iframe-div#custom-tab-2-pane(role="tabpanel" aria-labelledby="custom-tab-2-tab")
                         iframe#custom-tab-2-iframe(src=custom_tab_2.split("=")[1])
+                if custom_tab_3
+                    div.tab-pane.fade.show.iframe-div#custom-tab-3-pane(role="tabpanel" aria-labelledby="custom-tab-3-tab")
+                        iframe#custom-tab-3-iframe(src=custom_tab_3.split("=")[1])
+                if custom_tab_4
+                    div.tab-pane.fade.show.iframe-div#custom-tab-4-pane(role="tabpanel" aria-labelledby="custom-tab-4-tab")
+                        iframe#custom-tab-4-iframe(src=custom_tab_4.split("=")[1])
 
         script.
             require(['split'], function(split) {

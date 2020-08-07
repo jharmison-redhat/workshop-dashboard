@@ -20,6 +20,8 @@ module.exports = function(app, prefix) {
     
     router.locals.custom_tab_1 = process.env.CUSTOM_TAB_1;
     router.locals.custom_tab_2 = process.env.CUSTOM_TAB_2;
+    router.locals.custom_tab_3 = process.env.CUSTOM_TAB_3;
+    router.locals.custom_tab_4 = process.env.CUSTOM_TAB_4;
 
     router.locals.workshop_link = process.env.WORKSHOP_LINK;
     router.locals.slides_link = process.env.SLIDES_LINK;
