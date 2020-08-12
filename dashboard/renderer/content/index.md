@@ -71,8 +71,6 @@ base_url: %base_url%
 
 console_url: %console_url%
 
-crw_url: %crw_url%
-
 terminal_url: %terminal_url%
 
 slides_url: %slides_url%
